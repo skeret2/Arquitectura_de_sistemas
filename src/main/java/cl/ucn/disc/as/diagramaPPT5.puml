@@ -1,0 +1,35 @@
+@startuml
+
+class Departamento {
+    -Número
+    -Piso
+}
+
+class Edificio {
+    -Nombre
+    -Dirección
+}
+
+class Dueño {
+    -RUT
+    -Nombre
+    -Apellidos
+    -Email
+    -Telefono
+}
+
+class Pago {
+    -Fecha
+    -Monto
+}
+
+class Contrato {
+    -Fecha de Pago de Gastos Comunes
+}
+
+Departamento "0..*" -- "1" Edificio: pertenece
+Departamento "0..*" -- "1" Edificio: tiene
+Pago "0..*" -- "1" Contrato: registra
+Dueño "1" -- "1" Contrato
+
+@enduml
