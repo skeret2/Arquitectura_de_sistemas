@@ -2,6 +2,7 @@ plugins {
     id 'idea'
     id 'java'
     id('io.ebean') version '13.22.0'
+    id('com.github.ben-manes.versions') version '0.48.0'
 }
 
 group = 'cl.ucn.disc.as'
