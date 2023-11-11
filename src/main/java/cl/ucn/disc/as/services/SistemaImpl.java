@@ -1,6 +1,7 @@
 package cl.ucn.disc.as.services;
 import cl.ucn.disc.as.exceptions.SistemaException;
 import cl.ucn.disc.as.model.Edificio;
+import cl.ucn.disc.as.model.Persona;
 import io.ebean.Database;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,5 +31,16 @@ public class SistemaImpl implements Sistema {
             throw new SistemaException("Error al agregar un edificio", ex);
         }
         return edificio;
+    }
+
+    @Override
+    public Persona add(@NotNull Persona persona) {
+        try {
+            this.database.save(persona);
+        } catch (PersistenceException ex) {
+            log.error("Error", ex);
+            throw new SistemaException("Error al agregar una persona", ex);
+        }
+        return persona;
     }
 }

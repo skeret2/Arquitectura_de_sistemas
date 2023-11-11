@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
 import javax.persistence.Entity;
 
 /**
@@ -33,4 +34,19 @@ public class Edificio extends BaseModel {
     @Getter
     @NotNull
     private String direccion;
+
+    /**
+     * The departaments
+     */
+    @Getter
+    @NotNull
+    private List<Departamento> departamentos;
+
+    /**
+     * Add a departament to the ediifcio
+     */
+    public void addDepartamento(Departamento departamento) {
+        this.departamentos.add(departamento);
+    }
+
 }
