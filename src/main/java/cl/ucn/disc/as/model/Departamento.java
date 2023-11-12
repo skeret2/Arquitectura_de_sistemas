@@ -24,6 +24,6 @@ public class Departamento extends BaseModel  {
      */
     @NotNull
     @Getter
-    private String piso;
+    private Integer piso;
 
 }

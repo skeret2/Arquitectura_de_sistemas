@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.Getter;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import java.time.Duration;
 import java.time.Instant;
@@ -52,6 +54,23 @@ public class Contrato extends BaseModel {
     @Getter
     @NotNull
     private List<Pago> pagos;
+
+
+    public static class ContratoBuilder {
+        /**
+         *
+         * @return the Contrato
+         */
+        public Contrato build() {
+            //inicializa si pagos es nulo
+            if (this.pagos == null) {
+                this.pagos = new ArrayList<>();
+            }
+            return new Contrato(fechaPago, persona, departamento, pagos);
+
+        }
+    }
+
 
 
 }
