@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * The Finder of Persona.
  *
- * @author Diego Urrutia-Astorga.
+ * @author Scarlett Zapata.
  */
 public class PersonaFinder extends Finder<Long, Persona> {
 

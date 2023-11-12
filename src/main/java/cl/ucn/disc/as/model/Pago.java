@@ -17,6 +17,7 @@ import javax.persistence.Entity;
 public class Pago extends BaseModel {
     /**
      *  fecha de pago
+     *  @author Scarlett Zapata.
      */
     @NotNull
     private Instant fechaPago;

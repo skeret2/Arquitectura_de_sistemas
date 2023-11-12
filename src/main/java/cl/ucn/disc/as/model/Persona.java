@@ -17,7 +17,7 @@ import javax.persistence.Entity;
 /**
  * The Persona class.
  *
- * @author Diego Urrutia-Astorga.
+ * @author Scarlett Zapata.
  */
 @ToString(callSuper = true)
 @AllArgsConstructor

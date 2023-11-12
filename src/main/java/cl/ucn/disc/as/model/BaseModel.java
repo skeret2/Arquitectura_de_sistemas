@@ -18,7 +18,7 @@ import java.time.Instant;
 /**
  * Base Class.
  *
- * @author Diego Urrutia-Astorga.
+ * @author Scarlett Zapata.
  */
 @ToString
 @MappedSuperclass

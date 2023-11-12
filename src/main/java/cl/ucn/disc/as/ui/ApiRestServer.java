@@ -20,6 +20,7 @@ public final class ApiRestServer {
 
     /**
      * The constructor.
+     * @author Scarlett Zapata.
      */
     private ApiRestServer() {
         // Nothing here.

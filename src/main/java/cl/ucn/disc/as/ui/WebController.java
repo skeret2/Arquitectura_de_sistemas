@@ -13,6 +13,7 @@ public final class WebController implements RoutesConfigurator {
 
     /**
      * The Sistema.
+     * @author Scarlett Zapata.
      */
     private final Sistema sistema;
 

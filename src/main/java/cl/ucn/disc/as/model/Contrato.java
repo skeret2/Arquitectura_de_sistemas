@@ -24,6 +24,7 @@ public class Contrato extends BaseModel {
 
     /**
      *The Contador
+     * @author Scarlett Zapata.
      */
     @NotNull
     @Getter
