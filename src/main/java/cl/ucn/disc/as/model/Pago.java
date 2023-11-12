@@ -1,26 +1,29 @@
 package cl.ucn.disc.as.model;
 
-import java.time.Instant;
+import io.ebean.annotation.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.ToString;
 import lombok.Getter;
-import lombok.NonNull;
 
-public class Pago {
+import java.time.Instant;
 
+import javax.persistence.Entity;
+@Getter
+@ToString(callSuper = true)
+@AllArgsConstructor
+@Builder
+@Entity
+public class Pago extends BaseModel {
     /**
-     * The fechaPago
+     *  fecha de pago
      */
-    @NonNull
-    @Getter
+    @NotNull
     private Instant fechaPago;
 
     /**
-     * The monto
+     *  monto de pago
      */
-    @NonNull
-    @Getter
-    private Integer monto;
-
-    /**
-     * The contrato
-     */
+    @NotNull
+    private Integer montoPago;
 }

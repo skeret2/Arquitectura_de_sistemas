@@ -3,18 +3,22 @@ package cl.ucn.disc.as.services;
 import cl.ucn.disc.as.exceptions.SistemaException;
 
 import io.ebean.Database;
+import cl.ucn.disc.as.dao.PersonaFinder;
 import cl.ucn.disc.as.model.Edificio;
 import cl.ucn.disc.as.model.Persona;
 import cl.ucn.disc.as.model.Contrato;
 import cl.ucn.disc.as.model.Pago;
 import cl.ucn.disc.as.model.Departamento;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import java.util.Date;
-import java.util.List;
 
+import java.time.Instant;
+import java.util.List;
+import java.util.Locale;
+import com.github.javafaker.Faker;
+import com.github.javafaker.service.FakeValuesService;
+import com.github.javafaker.service.RandomService;
 
 
 
@@ -79,7 +83,7 @@ public class SistemaImpl implements Sistema {
      * Realiza un contrato entre una persona y un departamento.
      */
     @Override
-    public Contrato realizarContrato(Persona duenio, Departamento departamento, Date fechaPago) {
+    public Contrato realizarContrato(Persona duenio, Departamento departamento, Instant fechaPago) {
         // Verificar si la persona y el departamento existen en la base de datos
         Persona persona = this.database.find(Persona.class, duenio.getId());
         Departamento depto = this.database.find(Departamento.class, departamento.getId());
@@ -117,5 +121,41 @@ public class SistemaImpl implements Sistema {
         return contrato.getPagos();
     }
 
+    @Override
+    public Departamento addDepartamento(Long idEdificio, Departamento departamento) {
+        try {
+            Edificio edificio = this.database.find(Edificio.class, idEdificio);
+
+            if (edificio != null) {
+                edificio.addDepartamento(departamento);
+                this.database.save(edificio);
+            } else {
+                // Manejo cuando el edificio no se encuentra
+                log.error("No se encontró el edificio con el ID: " + idEdificio);
+            }
+        } catch (PersistenceException ex) {
+            // Manejo de excepciones de persistencia
+            log.error("Error", ex);
+            throw new SistemaException("Error al agregar un departamento", ex);
+        }
+        return departamento;
+    }
+
+    public void populate() {
+        Locale locale = new Locale("es-CL");
+        FakeValuesService fvs = new FakeValuesService(locale, new RandomService());
+        Faker faker = new Faker(locale);
+
+        for (int i = 0; i < 1000; i++) {
+            Persona persona = Persona.builder()
+                    .rut(fvs.bothify("#########-#"))
+                    .nombre(faker.name().firstName())
+                    .apellidos(faker.name().lastName())
+                    .email(faker.internet().emailAddress())
+                    .telefono(faker.phoneNumber().cellPhone())
+                    .build();
+            this.add(persona);
+        }
+    }
 
 }

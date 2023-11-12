@@ -4,9 +4,10 @@ import cl.ucn.disc.as.model.Departamento;
 import cl.ucn.disc.as.model.Edificio;
 import cl.ucn.disc.as.model.Persona;
 import cl.ucn.disc.as.model.Contrato;
-import java.util.Date;
 
-import javax.persistence.Entity;
+import java.time.Instant;
+import java.util.List;
+
 
 /**
  * System Operations
@@ -32,12 +33,37 @@ public interface Sistema {
     Departamento addDepartamento(Edificio edificio,Departamento departamento);
 
     /**
+     * Agregar un departamento al sistema
+     *
+     * @param edificio a agregar
+     * @param departamento a agregar
+     */
+    Departamento addDepartamento(Long edificio,Departamento departamento);
+
+    /**
      * Realizar un contrato
      *
      * @param duenio a agregar
      * @param departamento a agregar
      * @param fechaPago a agregar
      */
-    Contrato realizarContrato(Persona duenio, Departamento departamento, Date fechaPago);
+    Contrato realizarContrato(Persona duenio, Departamento departamento, Instant fechaPago);
+
+    /**
+     * Pobla la base de datos.
+     */
+    public void populate();
+
+
+    /**
+     * Obtener listado de personas del sistema.
+     */
+    List<Persona> getPersonas();
+
+    /**
+     * Obtener listado de contratos del sistema.
+     */
+    List<Contrato> getContratos();
+
 }
 

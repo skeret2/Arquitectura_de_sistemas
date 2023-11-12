@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
@@ -37,21 +38,17 @@ public class Edificio extends BaseModel {
     private String direccion;
 
     /**
-     * The departaments
+     * The Departamentos
      */
+    @OneToMany(cascade = CascadeType.ALL)
     @Getter
-    @NotNull
     private List<Departamento> departamentos;
 
     /**
      * Add a departament to the ediifcio
      */
     public void addDepartamento(Departamento departamento) {
-        // si la lista esta vacia se inicaliza
-        if (this.departamentos == null) {
-            this.departamentos = new ArrayList<>();
-        }
-        this.departamentos.add(departamento);
+        departamentos.add(departamento);
     }
 
 }

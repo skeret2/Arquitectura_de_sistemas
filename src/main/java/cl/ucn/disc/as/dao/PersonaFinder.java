@@ -35,4 +35,5 @@ public class PersonaFinder extends Finder<Long, Persona> {
     public Optional<Persona> byRut(@NotNull String rut) {
         return new QPersona().rut.eq(rut).findOneOrEmpty();
     }
+
 }

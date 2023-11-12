@@ -108,5 +108,4 @@ public class Persona extends BaseModel {
     //@NotNull
     //private int departamento;
 
-
 }
