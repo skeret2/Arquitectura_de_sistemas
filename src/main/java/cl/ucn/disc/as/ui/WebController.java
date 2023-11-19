@@ -19,7 +19,7 @@ public final class WebController implements RoutesConfigurator {
 
     public WebController() {
         this.sistema = new SistemaImpl(DB.getDefault());
-        //this.sistema.add(new Persona("12345678-9", "Maria", "Arredondo", "maria@gmail.com", "12345678"));
+        this.sistema.add(new Persona("12345678-9", "Maria", "Arredondo", "maria@gmail.com", "12345678"));
 
     }
 
