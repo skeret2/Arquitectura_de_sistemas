@@ -7,6 +7,7 @@ import cl.ucn.disc.as.model.Contrato;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -64,6 +65,11 @@ public interface Sistema {
      * Obtener listado de contratos del sistema.
      */
     List<Contrato> getContratos();
+
+    /**
+     * Obtener persona por rut.
+     */
+    Optional<Persona> getPersona(String rut);
 
 }
 

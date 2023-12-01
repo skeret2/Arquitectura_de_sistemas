@@ -19,6 +19,7 @@ import java.util.Locale;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
+import java.util.Optional;
 
 
 
@@ -155,6 +156,17 @@ public class SistemaImpl implements Sistema {
                     .telefono(faker.phoneNumber().cellPhone())
                     .build();
             this.add(persona);
+        }
+    }
+
+    @Override
+    public Optional<Persona> getPersona(String rut) {
+        try{
+            return new PersonaFinder().byRut(rut);
+        }
+        catch (PersistenceException ex){
+            log.error("Error", ex);
+            throw new SistemaException("Error al obtener una persona", ex);
         }
     }
 

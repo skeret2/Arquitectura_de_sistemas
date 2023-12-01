@@ -1,16 +1,45 @@
+buildscript {
+    ext {
+        gsonVersion = '2.10.1'
+        grpcVersion = '1.59.0'
+        protobufVersion = '3.21.12'
+        protobufPluginVersion = '0.9.4'
+        versionPluginVersion = '0.50.0'
+    }
+}
 plugins {
     id 'idea'
     id 'java'
     id('io.ebean') version '13.11.0'
     id('com.github.ben-manes.versions') version '0.48.0'
+    id('com.google.protobuf') version '0.9.4'
 }
 
 group = 'cl.ucn.disc.as'
-version = '0.0.1'
+version = '0.0.5'
 
 repositories {
     mavenLocal()
     mavenCentral()
+}
+
+protobuf{
+    protoc {
+        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+    }
+    clean {
+        delete generatedFilesBaseDir
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
 }
 
 java {
@@ -68,6 +97,12 @@ dependencies {
 
     implementation 'javax.validation:validation-api:2.0.1.Final'
 
+    // gRPC
+    runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
+    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    implementation "io.grpc:grpc-stub:${grpcVersion}"
+    implementation "javax.annotation:javax.annotation-api:1.3.2"
+
 }
 
 ebean {
@@ -78,4 +113,11 @@ test {
     useJUnitPlatform()
     testLogging.showStandardStreams = true
     testLogging.exceptionFormat = 'full'
+}
+
+idea {
+    module {
+        sourceDirs += file('src/generated/main/java')
+        sourceDirs += file('src/generated/main/grpc')
+    }
 }
