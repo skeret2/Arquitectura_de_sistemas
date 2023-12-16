@@ -120,4 +120,16 @@ idea {
         sourceDirs += file('src/generated/main/java')
         sourceDirs += file('src/generated/main/grpc')
     }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'cl.ucn.disc.as.Main'
+    }
+
+}
+
+shadowJar{
+    mergeServiceFiles()
+}
+
 }
