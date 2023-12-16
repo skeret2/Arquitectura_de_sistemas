@@ -1,0 +1,49 @@
+version: '3'
+services:
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    container_name: "database"
+    tty: true
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized"]
+      interval: 40s
+      timeout: 10s
+      retries: 4
+      start_period: 40s
+      start_interval: 5s
+    environment:
+      MARIADB_USER: conserjeria
+      MARIADB_PASSWORD: 79z#5RX&qq5z
+      MARIADB_DATABASE: conserjeria
+      MARIADB_ROOT_PASSWORD: 79z#5RX&qq5z
+      SERVICE_NAME: mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - private
+
+  backend:
+    image: skeret2/conserjeria-as
+    build: ./
+    restart: always
+    container_name: "conserjeria"
+    tty: true
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    environment:
+      DB_PLATFORM: mariadb
+      DB_URL: jdbc:mariadb://mariadb:3306/conserjeria?useLegacyDatetimeCode=false
+    ports:
+      - "7070:7070"
+    networks:
+      - private
+
+networks:
+  private:
+    driver: bridge
+
+volumes:
+  mariadb_data:
+    driver: local
